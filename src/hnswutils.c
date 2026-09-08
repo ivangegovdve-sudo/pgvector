@@ -246,7 +246,8 @@ HnswInitElement(char *base, ItemPointer heaptid, int m, double ml, int maxLevel,
 {
 	HnswElement element = HnswAlloc(allocator, sizeof(HnswElementData));
 
-	int			level = (int) (-log(RandomDouble()) * ml);
+	double		uniform = RandomDouble();
+	int			level = uniform == 0.0 ? maxLevel : (int) (-log(uniform) * ml);
 
 	/* Cap level */
 	if (level > maxLevel)
